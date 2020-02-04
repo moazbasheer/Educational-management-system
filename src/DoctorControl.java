@@ -10,22 +10,23 @@ public class DoctorControl {
 	public void start(){
 		while(true){
 			signup=0; back=0; logout=0;
-			
+
 			int choice=ch_signInUp();
 			executeSignInUp(choice);
-			
+
 			if(signup==1) continue;
 			else if(back==1) break;
-			
+
 			while(true){
-			int x=getDoctorMenuChoice();
-			executeDoctorMenuChoice(x);
-			if(logout==1) break;
+				int x=getDoctorMenuChoice();
+				executeDoctorMenuChoice(x);
+				if(logout==1) break;
 			}	
 		}
 	}
 	
 	public int getDoctorMenuChoice(){
+		
 		int choice;
 		System.out.print("Please make a choice:\n");
 		System.out.print("1-Create course\n2-View a course\n3-List Courses\n4-Log out\n");
@@ -33,12 +34,14 @@ public class DoctorControl {
 		do {
 			System.out.print("Please Enter valid choice:\n");
 			choice=scan.nextInt();
+			
 		}while(choice<1 || choice>4);
 		
 		return choice;
 	}
 	
 	public void executeDoctorMenuChoice(int choice){
+		
 		if(choice==1) CreateCourse();
 		else if(choice==2) ViewCourse();
 		else if(choice==3) ListCourses();
@@ -46,6 +49,7 @@ public class DoctorControl {
 	}
 	
 	public void ListCourses(){
+		
 		int x=Database.doctors.get(currentDoctornum).course.size();
 		System.out.printf("You have %d courses :",x);
 		
@@ -55,6 +59,7 @@ public class DoctorControl {
 	}
 	
 	public void CreateCourse(){
+		
 		System.out.print("Enter course name : ");
 		String nam=scan.nextLine();
 		nam=scan.nextLine();
@@ -69,6 +74,7 @@ public class DoctorControl {
 	}
 	
 	public void ViewCourse(){
+		
 		ListCourses();
 		System.out.print("Please make a choice : \n");
 		int x=Database.doctors.get(currentDoctornum).course.size();
@@ -104,6 +110,7 @@ public class DoctorControl {
 	}
 	
 	public void ShowGradesReport(){
+		
 		for(int i=0;i<Database.courses.get(currentCoursenum).stud.size();i++)
 		{
 			long totalgrades=0,ttotalgrades=0,numRegistered=0;
@@ -127,6 +134,7 @@ public class DoctorControl {
 	}
 	
 	public void CreateAssignment(){
+		
 		System.out.print("Write the question:\n");
 		String q=scan.nextLine();
 		
@@ -142,6 +150,7 @@ public class DoctorControl {
 	}
 	
 	public int ViewStudent(){
+		
 		int sz=Database.courses.get(currentCoursenum).assignment.size();
 		System.out.print("Course has "+sz+" assignments\n");
 		for(int i=0;i<sz;i++){
@@ -183,23 +192,28 @@ public class DoctorControl {
 	}
 	
 	public void printStudentAssignment(Assignment x,int num){
+		
 		System.out.print("Assignment "+num+" ");
 		if(x.submitted==true) System.out.print("-submitted-");
 		else System.out.print("-not sumbitted-");
-		if(x.submitted!=false) System.out.print(x.grade);
-		else System.out.print("NA");
+		if(x.submitted!=false) 
+		    System.out.print(x.grade);
+		else 
+		    System.out.print("NA");
 		System.out.println("/"+x.fullgrade);
 		if(x.submitted==true){
-		System.out.println("Answer is "+x.answer);
+			System.out.println("Answer is "+x.answer);
 		}
 	}
 
 	public void printAssignment(Assignment x,int num){
+		
 		System.out.print("Assignment "+num+" is ");
 		System.out.println(x.question);
 	}
 	
 	public int getChoice(int l,int r){
+		
 		int choice;
 		do {
 			System.out.print("Please Enter valid choice:\n");
@@ -209,6 +223,7 @@ public class DoctorControl {
 	}
 	
 	public void executeSignInUp(int choice){
+		
 		if(choice==1){ 
 			currentDoctornum=SignIn(); 
 		}
@@ -220,6 +235,7 @@ public class DoctorControl {
 	}
 	
 	public int ch_signInUp(){
+		
 		int choice;
 		System.out.print("Please make a choice \n1-sign in\n2-sign up\n3-back\n");
 		do {
@@ -230,6 +246,7 @@ public class DoctorControl {
 	}
 	
 	void SignUp(){
+		
 		System.out.print("Please Enter your username\n");
 		String name=scan.nextLine();
 		name=scan.nextLine();
@@ -240,6 +257,7 @@ public class DoctorControl {
 	}
 	
 	int SignIn(){
+		
 		System.out.print("Please Enter your username\n");
 		String name=scan.nextLine();
 		name=scan.nextLine();
