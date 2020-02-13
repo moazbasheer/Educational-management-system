@@ -9,7 +9,7 @@ public class Doctor {
 	Doctor() {
 		course = new ArrayList<>();
 	}
-
+ 
 	Doctor(String Name, String Password) {
 		name = Name;
 		password = Password;
