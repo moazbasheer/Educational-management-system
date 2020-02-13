@@ -100,8 +100,7 @@ public class DoctorControl {
 		int sz = Database.courses.get(currentCoursenum).assignment.size();
 		System.out.print("Course has " + sz + " assignments\n");
 		for (int i = 0; i < sz; i++) {
-			printAssignment(
-					Database.courses.get(currentCoursenum).assignment.get(i),
+			printAssignment(Database.courses.get(currentCoursenum).assignment.get(i),
 					i + 1);
 		}
 		System.out
