@@ -34,7 +34,7 @@ public class DoctorControl {
 		System.out.print("Please make a choice:\n");
 		System.out
 				.print("1-Create course\n2-View a course\n3-List Courses\n4-Log out\n");
-
+ 
 		do {
 			System.out.print("Please Enter valid choice:\n");
 			choice = scan.nextInt();
