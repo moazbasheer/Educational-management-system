@@ -1,17 +1,18 @@
-import java.util.*;
+import java.util.ArrayList;
+
+
 public class Doctor {
 	String name;
 	String password;
-	ArrayList<Course> course=new ArrayList<>();
-	
-	Doctor(){
-		course=new ArrayList<>();
+	ArrayList<Course> course = new ArrayList<>();
+
+	Doctor() {
+		course = new ArrayList<>();
 	}
-	
-	Doctor(String x,String y){
-		name=x;
-		password=y;
-		course=new ArrayList<>();
+
+	Doctor(String Name, String Password) {
+		name = Name;
+		password = Password;
+		course = new ArrayList<>();
 	}
-	
 }
