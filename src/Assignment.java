@@ -15,3 +15,4 @@ public class Assignment {
 		this.comment = "";
 	}
 }
+
