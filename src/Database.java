@@ -37,7 +37,7 @@ public class Database {
 		}
 		return -1;
 	}
-
+ 
 	static boolean isValidStudentUsername(String n) {
 		for (int i = 0; i < students.size(); i++) {
 			if (students.get(i).name.equals(n)) {
