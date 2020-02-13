@@ -1,4 +1,3 @@
-
 public class Assignment {
 	public String question;
 	public String answer;
@@ -6,14 +5,13 @@ public class Assignment {
 	public int grade;
 	public int fullgrade;
 	public String comment;
-	
-	public Assignment(String q,int a){
-		this.question=q;
-		this.answer="";
-		this.submitted=false;
-		this.grade=0;
-		this.fullgrade=a;
-		this.comment="";
+
+	public Assignment(String Question, int fullGrade) {
+		this.question = Question;
+		this.answer = "";
+		this.submitted = false;
+		this.grade = 0;
+		this.fullgrade = fullGrade;
+		this.comment = "";
 	}
-	
 }
