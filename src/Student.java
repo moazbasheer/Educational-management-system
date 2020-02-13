@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 
 public class Student {
 	String name;
@@ -8,9 +8,9 @@ public class Student {
 	
 	Student(){}
 	
-	Student(String x,String y){
-		name=x;
-		password=y;
+	Student(String Name,String Password){
+		name=Name;
+		password=Password;
 		registered_course=new ArrayList<Course>();
 	}
 	
