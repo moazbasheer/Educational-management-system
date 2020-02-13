@@ -6,9 +6,7 @@ public class Student {
 	ArrayList<Course> registered_course;
 	ArrayList<Assignment> assignment=new ArrayList<>();
 	
-	Student(){
-		
-	}
+	Student(){}
 	
 	Student(String x,String y){
 		name=x;
