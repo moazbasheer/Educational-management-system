@@ -15,3 +15,4 @@ public class Course {
 		this.stud = new ArrayList<>();
 	}
 }
+ 
