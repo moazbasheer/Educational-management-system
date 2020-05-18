@@ -1,3 +1,4 @@
+package edu;
 public class Assignment {
 	public String question;
 	public String answer;
