@@ -1,10 +1,13 @@
+package edu;
 import java.util.Scanner;
 
 public class DoctorControl {
 	public Scanner scan = new Scanner(System.in);
 	public int currentDoctornum = -1;
 	public int currentCoursenum = -1;
-	public int signup = 0, back = 0, logout = 0;
+	public int signup = 0;
+	public int back = 0;
+	public int logout = 0;
 
 	public void start() {
 		while (true) {
