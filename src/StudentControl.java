@@ -4,7 +4,9 @@ import java.util.Scanner;
 public class StudentControl {
 	public Scanner scan = new Scanner(System.in);
 	public int currentStudentnum = -1, currentCoursenum = -1;
-	private int signup = 0, back = 0, logout = 0;
+	private int signup = 0;
+	private int back = 0;
+	private int logout = 0;
 
 	void start() {
 		while (true) {
