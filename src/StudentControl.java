@@ -94,7 +94,7 @@ public class StudentControl {
 
 	public void printAssignment(Assignment x, int num) {
 		System.out.print("Assignment " + num + " ");
-		if (x.submitted == true)
+		if (x.submitted)
 			System.out.print("-submitted-");
 		else
 			System.out.print("-not sumbitted-");
@@ -121,7 +121,7 @@ public class StudentControl {
 			do {
 				choice = getChoice(1, sz);
 			} while (Database.courses.get(currentCoursenum).stud.get(stnum).assignment
-					.get(choice - 1).submitted == true);
+					.get(choice - 1).submitted);
 			System.out.print("The question is :\n");
 			System.out.println(Database.courses.get(currentCoursenum).stud
 					.get(stnum).assignment.get(choice - 1).question);
@@ -199,7 +199,7 @@ public class StudentControl {
 		ArrayList<Course> reg = new ArrayList<>();
 
 		for (int i = 0; i < sz; i++) {
-			if (isRegistered(Database.courses.get(i)) == false) {
+			if (!isRegistered(Database.courses.get(i))) {
 				System.out.println((f++) + "-" + Database.courses.get(i).name);
 				reg.add(Database.courses.get(i));
 			}
