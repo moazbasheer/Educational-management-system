@@ -138,7 +138,7 @@ public class DoctorControl {
 						.get(i).assignment.get(j).fullgrade;
 
 				if (Database.courses.get(currentCoursenum).stud.get(i).assignment
-						.get(j).submitted == true) {
+						.get(j).submitted) {
 					numRegistered++;
 				}
 
@@ -218,18 +218,22 @@ public class DoctorControl {
 
 	public void printStudentAssignment(Assignment x, int num) {
 		System.out.print("Assignment " + num + " ");
-		if (x.submitted == true) {
+		
+		if (x.submitted) {
 			System.out.print("-submitted-");
 		} else {
 			System.out.print("-not sumbitted-");
 		}
-		if (x.submitted != false) {
+		
+		if (x.submitted) {
 			System.out.print(x.grade);
 		} else {
 			System.out.print("NA");
 		}
+		
 		System.out.println("/" + x.fullgrade);
-		if (x.submitted == true) {
+		
+		if (x.submitted) {
 			System.out.println("Answer is " + x.answer);
 		}
 	}
