@@ -1,10 +1,11 @@
+package edu;
 import java.util.ArrayList;
 
 
 public class Doctor {
-	String name;
-	String password;
-	ArrayList<Course> course = new ArrayList<>();
+	public String name;
+	public String password;
+	public ArrayList<Course> course = new ArrayList<>();
 
 	Doctor() {
 		course = new ArrayList<>();
