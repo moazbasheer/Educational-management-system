@@ -1,6 +1,5 @@
+package edu;
 import java.util.Scanner;
-
-
 public class MainControl {
 	public Scanner scan = new Scanner(System.in);
 	public Database database;
