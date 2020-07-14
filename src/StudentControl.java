@@ -1,10 +1,9 @@
-package edu;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentControl {
-	public Scanner scan = new Scanner(System.in);
-	public int currentStudentnum = -1, currentCoursenum = -1;
+	private Scanner scan = new Scanner(System.in);
+	private int currentStudentnum = -1, currentCoursenum = -1;
 	private int signup = 0;
 	private int back = 0;
 	private int logout = 0;
@@ -48,34 +47,34 @@ public class StudentControl {
 
 	public void ViewCourses() {
 		ListCourses();
-		if (Database.students.get(currentStudentnum).registered_course.size() > 0) {
+		if (Database.getStudents().get(currentStudentnum).getRegistered_course().size() > 0) {
 			System.out.print("Please make a choice\n");
 			int choice = getChoice(1,
-					Database.students.get(currentStudentnum).registered_course
+					Database.getStudents().get(currentStudentnum).getRegistered_course()
 							.size());
 			currentCoursenum = choice - 1;
 			System.out.print("Course name: "
-					+ Database.courses.get(currentCoursenum).name + "\n");
+					+ Database.getCourses().get(currentCoursenum).getName() + "\n");
 			System.out.print("Course ID: "
-					+ Database.courses.get(currentCoursenum).ID + "\n");
+					+ Database.getCourses().get(currentCoursenum).getID() + "\n");
 			System.out.print("Doctor name: "
-					+ Database.courses.get(currentCoursenum).docName + "\n\n");
-			int sz = Database.courses.get(currentCoursenum).assignment.size();
+					+ Database.getCourses().get(currentCoursenum).getDocName() + "\n\n");
+			int sz = Database.getCourses().get(currentCoursenum).getAssignment().size();
 			System.out.print("Course has " + sz + " assignments\n");
 			int stnum = -1;
 			// get Student number in the course
-			for (int i = 0; i < Database.courses.get(currentCoursenum).stud
+			for (int i = 0; i < Database.getCourses().get(currentCoursenum).getStud()
 					.size(); i++) {
-				if (Database.courses.get(currentCoursenum).stud.get(i).name
-						.equals(Database.students.get(currentStudentnum).name)) {
+				if (Database.getCourses().get(currentCoursenum).getStud().get(i).getName()
+						.equals(Database.getCourses().get(currentStudentnum).getName())) {
 					stnum = i;
 					break;
 				}
 			}
 
 			for (int i = 0; i < sz; i++) {
-				printAssignment(Database.courses.get(currentCoursenum).stud
-						.get(stnum).assignment.get(i), i + 1);
+				printAssignment(Database.getCourses().get(currentCoursenum).getStud()
+						.get(stnum).getAssignment().get(i), i + 1);
 			}
 
 			System.out.println();
@@ -93,26 +92,28 @@ public class StudentControl {
 		}
 	}
 
-	public void printAssignment(Assignment x, int num) {
+	public void printAssignment(Assignment assignment, int num) {
 		System.out.print("Assignment " + num + " ");
-		if (x.submitted)
+		if (assignment.isSubmitted())
 			System.out.print("-submitted-");
 		else
 			System.out.print("-not sumbitted-");
-		if (x.grade != -1)
-			System.out.print(x.grade);
-		else
+
+		if (assignment.isGraded()) {
+			System.out.print(assignment.getGrade());
+		} else {
 			System.out.print("NA");
-		System.out.println("/" + x.fullgrade);
+		}
+		System.out.println("/" + assignment.getFullGrade());
 	}
 
 	public void SubmitSolution(int stnum) {
-		int sz = Database.courses.get(currentCoursenum).assignment.size();
+		int sz = Database.getCourses().get(currentCoursenum).getAssignment().size();
 		System.out.println("You have " + sz + " assignments\n");
 
 		for (int i = 0; i < sz; i++) {
 			printAssignment(
-					Database.courses.get(currentCoursenum).assignment.get(i),
+					Database.getCourses().get(currentCoursenum).getAssignment().get(i),
 					i + 1);
 		}
 
@@ -121,35 +122,35 @@ public class StudentControl {
 			int choice;
 			do {
 				choice = getChoice(1, sz);
-			} while (Database.courses.get(currentCoursenum).stud.get(stnum).assignment
-					.get(choice - 1).submitted);
+			} while (Database.getCourses().get(currentCoursenum).getStud().get(stnum).getAssignment()
+					.get(choice - 1).isSubmitted());
 			System.out.print("The question is :\n");
-			System.out.println(Database.courses.get(currentCoursenum).stud
-					.get(stnum).assignment.get(choice - 1).question);
+			System.out.println(Database.getCourses().get(currentCoursenum).getStud()
+					.get(stnum).getAssignment().get(choice - 1).getQuestion());
 			System.out.print("Write your answer\n");
 			String s = scan.nextLine();
-			Database.courses.get(currentCoursenum).stud.get(stnum).assignment
-					.get(choice - 1).answer = scan.nextLine();
-			Database.courses.get(currentCoursenum).stud.get(stnum).assignment
-					.get(choice - 1).submitted = true;
+			Database.getCourses().get(currentCoursenum).getStud().get(stnum).getAssignment()
+					.get(choice - 1).addAnAnswer(scan.nextLine());
+			Database.getCourses().get(currentCoursenum).getStud().get(stnum).getAssignment()
+					.get(choice - 1).submit();
 			System.out.print("Assignment is submitted successfully\n");
 		}
 	}
 
 	public void UnregisterCourse() {
-		int sz = Database.courses.get(currentCoursenum).stud.size();
+		int sz = Database.getCourses().get(currentCoursenum).getStud().size();
 		for (int i = 0; i < sz; i++) {
-			if (Database.courses.get(currentCoursenum).stud.get(i).equals(
-					Database.students.get(currentStudentnum))) {
-				Database.courses.get(currentCoursenum).stud.remove(i);
+			if (Database.getCourses().get(currentCoursenum).getStud().get(i).equals(
+					Database.getCourses().get(currentStudentnum))) {
+				Database.getCourses().get(currentCoursenum).getStud().remove(i);
 				break;
 			}
 		}
-		sz = Database.students.get(currentStudentnum).registered_course.size();
+		sz = Database.getStudents().get(currentStudentnum).getRegistered_course().size();
 		for (int i = 0; i < sz; i++) {
-			if (Database.students.get(currentStudentnum).registered_course.get(
-					i).equals(Database.courses.get(currentCoursenum))) {
-				Database.students.get(currentStudentnum).registered_course
+			if (Database.getStudents().get(currentStudentnum).getRegistered_course().get(
+					i).equals(Database.getCourses().get(currentCoursenum))) {
+				Database.getStudents().get(currentStudentnum).getRegistered_course()
 						.remove(i);
 				break;
 			}
@@ -167,7 +168,7 @@ public class StudentControl {
 	}
 
 	public void ListCourses() {
-		int sz = Database.students.get(currentStudentnum).registered_course
+		int sz = Database.getStudents().get(currentStudentnum).getRegistered_course()
 				.size();
 		System.out.println("Your have " + sz + " courses :\n");
 
@@ -175,17 +176,17 @@ public class StudentControl {
 			System.out
 					.println((i + 1)
 							+ "-"
-							+ Database.students.get(currentStudentnum).registered_course
-									.get(i).name);
+							+ Database.getStudents().get(currentStudentnum).getRegistered_course()
+									.get(i).getName());
 		}
 
 		System.out.println();
 	}
 
 	public boolean isRegistered(Course cr) {
-		for (int i = 0; i < Database.students.get(currentStudentnum).registered_course
+		for (int i = 0; i < Database.getStudents().get(currentStudentnum).getRegistered_course()
 				.size(); i++) {
-			if (Database.students.get(currentStudentnum).registered_course.get(
+			if (Database.getStudents().get(currentStudentnum).getRegistered_course().get(
 					i).equals(cr)) {
 				return true;
 			}
@@ -195,14 +196,14 @@ public class StudentControl {
 
 	public void registerInCourse() {
 		System.out.print("Please choose a course:\n");
-		int sz = Database.courses.size();
+		int sz = Database.getCourses().size();
 		int f = 1;
 		ArrayList<Course> reg = new ArrayList<>();
 
 		for (int i = 0; i < sz; i++) {
-			if (!isRegistered(Database.courses.get(i))) {
-				System.out.println((f++) + "-" + Database.courses.get(i).name);
-				reg.add(Database.courses.get(i));
+			if (!isRegistered(Database.getCourses().get(i))) {
+				System.out.println((f++) + "-" + Database.getCourses().get(i).getName());
+				reg.add(Database.getCourses().get(i));
 			}
 		}
 
@@ -214,21 +215,21 @@ public class StudentControl {
 				choice = scan.nextInt();
 			} while (choice < 1 || choice > f - 1);
 
-			Database.students.get(currentStudentnum).registered_course.add(reg
+			Database.getStudents().get(currentStudentnum).getRegistered_course().add(reg
 					.get(choice - 1));
 			int x = -1;
-			for (int i = 0; i < Database.courses.size(); i++) {
-				if (Database.courses.get(i).equals(reg.get(choice - 1))) {
+			for (int i = 0; i < Database.getCourses().size(); i++) {
+				if (Database.getCourses().get(i).equals(reg.get(choice - 1))) {
 					x = i;
 				}
 			}
-			Database.courses.get(x).stud.add(Database.students
+			Database.getCourses().get(x).getStud().add(Database.getStudents()
 					.get(currentStudentnum));
-			int n = Database.courses.get(x).stud.size() - 1;
+			int n = Database.getCourses().get(x).getStud().size() - 1;
 			// Add assignments to student
-			for (int i = 0; i < Database.courses.get(x).assignment.size(); i++) {
-				Database.courses.get(x).stud.get(n).assignment
-						.add(Database.courses.get(choice - 1).assignment.get(i));
+			for (int i = 0; i < Database.getCourses().get(x).getAssignment().size(); i++) {
+				Database.getCourses().get(x).getStud().get(n).getAssignment()
+						.add(Database.getCourses().get(choice - 1).getAssignment().get(i));
 			}
 			System.out.print("Your registeration completed\n");
 		} else
@@ -287,7 +288,7 @@ public class StudentControl {
 			pass = scan.nextLine();
 		}
 
-		Database.students.add(new Student(name, pass));
+		Database.getStudents().add(new Student(name, pass));
 		System.out.print("Your account is registered successfully\n");
 	}
 

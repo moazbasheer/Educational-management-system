@@ -1,4 +1,3 @@
-package edu;
 import java.util.Scanner;
 
 public class DoctorControl {
@@ -58,15 +57,15 @@ public class DoctorControl {
 	}
 
 	public void ListCourses() {
-		int x = Database.doctors.get(currentDoctornum).course.size();
+		int x = Database.getDoctors().get(currentDoctornum).getCourse().size();
 		System.out.printf("You have %d courses :", x);
 
 		for (int i = 0; i < x; i++) {
 			System.out
 					.println((i + 1)
 							+ "-"
-							+ Database.doctors.get(currentDoctornum).course
-									.get(i).name);
+							+ Database.getDoctors().get(currentDoctornum).getCourse()
+									.get(i).getName());
 		}
 	}
 
@@ -79,31 +78,31 @@ public class DoctorControl {
 		long id = scan.nextLong();
 
 		Course r = new Course(nam, id,
-				Database.doctors.get(currentDoctornum).name);
-		Database.courses.add(new Course(nam, id, Database.doctors
-				.get(currentDoctornum).name));
-		Database.doctors.get(currentDoctornum).course.add(r);
+				Database.getDoctors().get(currentDoctornum).getName());
+		Database.getCourses().add(new Course(nam, id, Database.getDoctors()
+				.get(currentDoctornum).getName()));
+		Database.getDoctors().get(currentDoctornum).getCourse().add(r);
 		System.out.print("Course created successfully\n");
 	}
 
 	public void ViewCourse() {
 		ListCourses();
 		System.out.print("Please make a choice : \n");
-		int x = Database.doctors.get(currentDoctornum).course.size();
+		int x = Database.getDoctors().get(currentDoctornum).getCourse().size();
 		int choice = getChoice(1, x);
 		currentCoursenum = choice - 1;
 
 		System.out.print("Course name: "
-				+ Database.courses.get(currentCoursenum).name + "\n");
+				+ Database.getCourses().get(currentCoursenum).getName() + "\n");
 		System.out.print("Course ID: "
-				+ Database.courses.get(currentCoursenum).ID + "\n");
+				+ Database.getCourses().get(currentCoursenum).getID() + "\n");
 		System.out.print("Doctor name: "
-				+ Database.courses.get(currentCoursenum).docName + "\n");
+				+ Database.getCourses().get(currentCoursenum).getDocName() + "\n");
 
-		int sz = Database.courses.get(currentCoursenum).assignment.size();
+		int sz = Database.getCourses().get(currentCoursenum).getAssignment().size();
 		System.out.print("Course has " + sz + " assignments\n");
 		for (int i = 0; i < sz; i++) {
-			printAssignment(Database.courses.get(currentCoursenum).assignment.get(i),
+			printAssignment(Database.getCourses().get(currentCoursenum).getAssignment().get(i),
 					i + 1);
 		}
 		System.out
@@ -126,25 +125,25 @@ public class DoctorControl {
 	}
 
 	public void ShowGradesReport() {
-		for (int i = 0; i < Database.courses.get(currentCoursenum).stud.size(); i++) {
+		for (int i = 0; i < Database.getCourses().get(currentCoursenum).getStud().size(); i++) {
 			long totalgrades = 0, ttotalgrades = 0, numRegistered = 0;
 
-			for (int j = 0; j < Database.courses.get(currentCoursenum).stud
-					.get(i).assignment.size(); j++) {
+			for (int j = 0; j < Database.getCourses().get(currentCoursenum).getStud()
+					.get(i).getAssignment().size(); j++) {
 
-				totalgrades += Database.courses.get(currentCoursenum).stud
-						.get(i).assignment.get(j).grade;
-				ttotalgrades += Database.courses.get(currentCoursenum).stud
-						.get(i).assignment.get(j).fullgrade;
+				totalgrades += Database.getCourses().get(currentCoursenum).getStud()
+						.get(i).getAssignment().get(j).getGrade();
+				ttotalgrades += Database.getCourses().get(currentCoursenum).getStud()
+						.get(i).getAssignment().get(j).getFullGrade();
 
-				if (Database.courses.get(currentCoursenum).stud.get(i).assignment
-						.get(j).submitted) {
+				if (Database.getCourses().get(currentCoursenum).getStud().get(i).getAssignment()
+						.get(j).isSubmitted()) {
 					numRegistered++;
 				}
 
 			}
 			System.out.println("Student's name is: "
-					+ Database.courses.get(currentCoursenum).stud.get(i).name);
+					+ Database.getCourses().get(currentCoursenum).getStud().get(i).getName());
 			System.out.println("number of submitted is: " + numRegistered);
 			System.out.println("Total grades: " + totalgrades + "/"
 					+ ttotalgrades);
@@ -160,21 +159,21 @@ public class DoctorControl {
 		int a = scan.nextInt();
 		String s = scan.nextLine();
 
-		Database.courses.get(currentCoursenum).assignment.add(new Assignment(q,
+		Database.getCourses().get(currentCoursenum).getAssignment().add(new Assignment(q,
 				a));
-		int x = Database.courses.get(currentCoursenum).stud.size();
+		int x = Database.getCourses().get(currentCoursenum).getStud().size();
 		for (int i = 0; i < x; i++) {
-			Database.courses.get(currentCoursenum).stud.get(i).assignment
+			Database.getCourses().get(currentCoursenum).getStud().get(i).getAssignment()
 					.add(new Assignment(q, a));
 		}
 	}
 
 	public int ViewStudent() {
-		int sz = Database.courses.get(currentCoursenum).assignment.size();
+		int sz = Database.getCourses().get(currentCoursenum).getAssignment().size();
 		System.out.print("Course has " + sz + " assignments\n");
 		for (int i = 0; i < sz; i++) {
 			printAssignment(
-					Database.courses.get(currentCoursenum).assignment.get(i),
+					Database.getCourses().get(currentCoursenum).getAssignment().get(i),
 					i + 1);
 		}
 		System.out
@@ -183,35 +182,35 @@ public class DoctorControl {
 		if (ch == -1)
 			return -1;
 
-		int x = Database.courses.get(currentCoursenum).stud.size();
+		int x = Database.getCourses().get(currentCoursenum).getStud().size();
 		System.out.print("Course has " + x + " students\n");
 		System.out.println("Please choose one of them from 1 to " + x);
 		int choice = getChoice(1, x);
-		Student st = Database.courses.get(currentCoursenum).stud
+		Student st = Database.getCourses().get(currentCoursenum).getStud()
 				.get(choice - 1);
-		System.out.println("Student's name is " + st.name);
-		for (int i = 0; i < st.assignment.size(); i++) {
-			printStudentAssignment(st.assignment.get(i), i + 1);
+		System.out.println("Student's name is " + st.getName());
+		for (int i = 0; i < st.getAssignment().size(); i++) {
+			printStudentAssignment(st.getAssignment().get(i), i + 1);
 		}
 
 		System.out.print("Choose one assignment of the above:\n");
-		int r = getChoice(1, st.assignment.size());
+		int r = getChoice(1, st.getAssignment().size());
 		System.out.println("Please choose from this list");
 		System.out.println("1-Set or edit Grade\n2-Set a comment\n3-back\n");
 		int choice2 = getChoice(1, 3);
 		if (choice2 == 1) {
 			System.out.print("Please enter the grade\n");
 			System.out.print("the full grade is ");
-			System.out.println(Database.courses.get(currentCoursenum).stud
-					.get(choice - 1).assignment.get(r - 1).fullgrade);
+			System.out.println(Database.getCourses().get(currentCoursenum).getStud()
+					.get(choice - 1).getAssignment().get(r - 1).getFullGrade());
 			int gr = scan.nextInt();
-			Database.courses.get(currentCoursenum).stud.get(choice - 1).assignment
-					.get(r - 1).grade = gr;
+			Database.getCourses().get(currentCoursenum).getStud().get(choice - 1).getAssignment()
+					.get(r - 1).putGrade(gr);
 		} else if (choice2 == 2) {
 			System.out.print("Please enter a comment:\n");
 			String s = scan.nextLine();
-			Database.courses.get(currentCoursenum).stud.get(choice - 1).assignment
-					.get(r).comment = s;
+			Database.getCourses().get(currentCoursenum).getStud().get(choice - 1).getAssignment()
+					.get(r).putComment(s);
 		}
 		return 0;
 	}
@@ -219,28 +218,28 @@ public class DoctorControl {
 	public void printStudentAssignment(Assignment x, int num) {
 		System.out.print("Assignment " + num + " ");
 		
-		if (x.submitted) {
+		if (x.isSubmitted()) {
 			System.out.print("-submitted-");
 		} else {
 			System.out.print("-not sumbitted-");
 		}
 		
-		if (x.submitted) {
-			System.out.print(x.grade);
+		if (x.isSubmitted()) {
+			System.out.print(x.getGrade());
 		} else {
 			System.out.print("NA");
 		}
 		
-		System.out.println("/" + x.fullgrade);
+		System.out.println("/" + x.getFullGrade());
 		
-		if (x.submitted) {
-			System.out.println("Answer is " + x.answer);
+		if (x.isSubmitted()) {
+			System.out.println("Answer is " + x.getAnswer());
 		}
 	}
 
 	public void printAssignment(Assignment x, int num) {
 		System.out.print("Assignment " + num + " is ");
-		System.out.println(x.question);
+		System.out.println(x.getQuestion());
 	}
 
 	public int getChoice(int l, int r) {
@@ -279,7 +278,7 @@ public class DoctorControl {
 		name = scan.nextLine();
 		System.out.print("Please Enter your password\n");
 		String pass = scan.nextLine();
-		Database.doctors.add(new Doctor(name, pass));
+		Database.getDoctors().add(new Doctor(name, pass));
 		System.out.print("Your account is registered successfully\n");
 	}
 

@@ -1,12 +1,12 @@
-package edu;
 import java.util.Scanner;
 public class MainControl {
-	public Scanner scan = new Scanner(System.in);
-	public Database database;
-	public StudentControl studentcon;
-	public DoctorControl doctorcon;
+	private Scanner scan = new Scanner(System.in);
+	private Database database;
+	private StudentControl studentcon;
+	private DoctorControl doctorcon;
 
 	public MainControl() {
+		scan = new Scanner(System.in);
 		database = new Database();
 		studentcon = new StudentControl();
 		doctorcon = new DoctorControl();
@@ -14,7 +14,7 @@ public class MainControl {
 
 	public void run() {
 		while (true) {
-			int doc = getDocStChoice();
+			int doc = getUserState();
 			if (doc == 1)
 				studentcon.start();
 			else
@@ -22,7 +22,7 @@ public class MainControl {
 		}
 	}
 
-	public int getDocStChoice() {
+	public int getUserState() {
 		System.out.print("Are you ?? \n1-Student \n2-Doctor\n");
 		int choice;
 
